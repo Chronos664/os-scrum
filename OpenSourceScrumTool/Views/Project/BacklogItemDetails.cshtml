@@ -1,0 +1,176 @@
+﻿@using System.ServiceModel.Security
+@using OpenSourceScrumTool.Account_Manager
+@using OpenSourceScrumTool.Utilities
+@model OpenSourceScrumTool.Models.ProductBacklogItemDetailsDTO
+@{
+    ViewBag.Title = "Backlog Item Details";
+}
+@Html.ActionLink("Back to Project Details", "ProjectDetails", new { id = ViewBag.ProjectID ?? null })
+<h2>@Model.Name</h2>
+<div id="Parent">
+    <div class="float-left" style="width: 15%; float: left">
+        <h3>Item Details</h3>
+        @if (UserHelper.isUserInRole(User, RoleEnum.Roles.TeamMember))
+        {
+            if (Model.SprintID.HasValue)
+            {
+                <a href="#" id="editPBIlink" pbiid="@Model.ProductBacklogItemID" pid="@Model.ProjectID" priority="@Model.Priority" pbiname="@Model.Name" pbidescription="@Model.Description" pbieffort="@Model.EffortScore" pbistate="@Model.State" pbisprintid="@Model.SprintID.Value">Edit Backlog Item</a>
+            }
+            else
+            {
+                <a href="#" id="editPBIlink" pbiid="@Model.ProductBacklogItemID" pid="@Model.ProjectID" priority="@Model.Priority" pbiname="@Model.Name" pbidescription="@Model.Description" pbieffort="@Model.EffortScore" pbistate="@Model.State" pbisprintid="">Edit Backlog Item</a>
+            }
+        }
+        <table>
+            <tr><h4 style="width: 80%">Description</h4></tr>
+            <tr>@Model.Description</tr>
+            <tr><h4>Current Iteration</h4></tr>
+            @if (Model.CurrentIteration != null)
+            {
+                <tr>@Model.CurrentIteration.SprintName</tr>
+            }
+            else
+            {
+                <tr>Not Assigned to an Iteration</tr>
+            }
+            <tr><h4>Effort</h4></tr>
+            <tr>@Model.EffortScore</tr>
+            <tr><h4>State</h4></tr>
+            <tr class="state" stateval="@Model.State"></tr>
+        </table>
+    </div>
+    <div class="float-right" style="width: 85%; float: right;">
+        <h3>Tasks</h3>
+        @if (UserHelper.isUserInRole(User, RoleEnum.Roles.TeamMember))
+        {
+            <a href="#" id="taskAddLink" pbiid="@Model.ProductBacklogItemID">Add Task</a>
+        }
+        <table id="pbiTasks" style="width: 100%">
+            @if (Model.PBITasks.Any())
+            {
+                <thead>
+                    <tr>
+                        <th>
+                            <strong>Name</strong>
+                        </th>
+                        <th>
+                            <strong>Description</strong>
+                        </th>
+                        <th>
+                            <strong>Remaining Time&nbsp;</strong>
+                        </th>
+                        <th>
+                            <strong>Current User</strong>
+                        </th>
+                        <th>
+                            <strong>State</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model.PBITasks.Where(pbitask => !pbitask.Archived))
+                    {
+                        <tr pbiid="@Model.ProductBacklogItemID" tid="@t.BacklogItemTaskID">
+                            <td>
+                                @t.Name
+                            </td>
+                            <td>
+                                @t.Description
+                            </td>
+                            <td>
+                                @t.RemainingTime&nbsp;
+                            </td>
+                            @if (t.CurrentUserID == null)
+                            {
+                                <td>
+                                    No User Assigned
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @UserHelper.GetFullNameFromUser(t.CurrentUserID.Value)&nbsp;
+                                </td>
+                            }
+                            <td class="state" stateval="@t.State"></td>
+                            @if (UserHelper.isUserInRole(User, RoleEnum.Roles.TeamMember))
+                            {
+                                <td>
+                                    <a href="#" class="editTask" taskid="@t.BacklogItemTaskID" pbiid="@Model.ProductBacklogItemID" taskname="@t.Name" taskdescription="@t.Description" remainingtime="@t.RemainingTime" currentuserid="@t.CurrentUserID" state="@t.State">Edit</a>
+                                </td>
+                                <td>
+                                    <a href="#" class="deleteTask" taskid="@t.BacklogItemTaskID">Delete</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+
+            }
+            else
+            {
+                <tr>
+                    <td>No Tasks available for this backlog item</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        setStateExplicit(".state");
+        var projID = @Model.ProjectID;
+        var editPBIDialog = new PBIDialog("edit");
+        var addTaskDialog = new TaskDialog("add", projID);
+        var editTaskDialog = new TaskDialog("edit", projID);
+
+        $("a#editPBIlink").click(function (e) {
+            e.preventDefault();
+            var data = {
+                projID: $(this).attr("pid"),
+                pbiID: $(this).attr("pbiid"),
+                priority: $(this).attr("priority"),
+                name: $(this).attr("pbiname"),
+                description: $(this).attr("pbidescription"),
+                effort: $(this).attr("pbieffort"),
+                state: $(this).attr("pbistate"),
+            };
+            if ($(this).attr("pbisprintid") != "") {
+                data.SprintID = $(this).attr("pbisprintid");
+            } else {
+                data.SprintID = null;
+            }
+            editPBIDialog.generatedDialog.data("pdata", data);
+            editPBIDialog.generatedDialog.dialog("open");
+            $("#editpbiNameTextBox").val(data.name);
+            $("#editpbiDescriptionTextBox").val(data.description);
+            $("#editpbiEffortScoreTextBox").val(data.effort);
+            $("#editpbiState").val(data.state);
+        });
+
+        $("a#taskAddLink").click(function(e) {
+            e.preventDefault();
+            addTaskDialog.generatedDialog.data("pbiid", $(this).attr("pbiid"));
+            addTaskDialog.generatedDialog.dialog("open");
+        });
+        $("a.editTask").click(function(e) {
+            e.preventDefault();
+            var data = {
+                taskid: $(this).attr("taskid"),
+                pbiid: $(this).attr("pbiid"),
+                taskName: $(this).attr("taskname"),
+                taskdescription: $(this).attr("taskdescription"),
+                remainingtime: $(this).attr("remainingtime"),
+                currentuserid: $(this).attr("currentuserid"),
+                state: $(this).attr("state")
+            };
+            editTaskDialog.generatedDialog.data("tdata", data);
+            editTaskDialog.generatedDialog.dialog("open");
+            $("#edittaskNameTextBox").val(data.taskName);
+            $("#edittaskDescriptionTextBox").val(data.taskdescription);
+            $("#edittaskTimeRemainingTextBox").val(data.remainingtime);
+            $("#edittaskState").val(data.state);
+            $("#edittaskuserlist").val(data.currentuserid);
+        });
+    });
+</script>

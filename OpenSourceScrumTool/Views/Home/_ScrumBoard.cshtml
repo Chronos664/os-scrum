@@ -1,0 +1,28 @@
+﻿@using OpenSourceScrumTool.Models
+@model OpenSourceScrumTool.Models.IterationDetailsDTO
+<table id="scrumboard">
+    <thead>
+        <tr>
+            <th>Items</th>
+            <th>Not Started</th>
+            <th>In Progress</th>
+            <th>Done</th>
+        </tr>
+    </thead>
+    @foreach (ProductBacklogItemDetailsDTO pbi in Model.productBacklogItems)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    <div class="pbiElement">
+                        <p>
+                            @pbi.Name<br />
+                        <a href="#" class="addTask" pid="@pbi.ProjectID" pbiid="@pbi.ProductBacklogItemID">Add Task</a>
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+        <tbody class="container"></tbody>
+    }
+</table>

@@ -1,0 +1,161 @@
+﻿<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .container {
+        /*background-image: url('../../Images/CorkBoard.png');
+        background-repeat: no-repeat;
+        background-size: inherit;*/
+        overflow: hidden;
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+<div class="container">
+    <div class="col-1">
+        <h3>Items</h3>
+    </div>
+    <div class="col-2">
+        <h3>Not Started</h3>
+    </div>
+    <div class="col-3">
+        <h3>In Progress</h3>
+    </div>
+    <div class="col-4">
+        <h3>Done</h3>
+    </div>
+    <div class="dataContainer">
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function triggerDraggableReload() {
+            $('.taskdata').draggable({
+                container: ".board",
+                scroll: false,
+                snap: ".taskElements",
+                start: function () {
+                    $(this).data("originalPosition", $(this).position());
+                }
+            });
+            $('.taskElements').droppable({
+                accept: '.taskdata',
+                over: function (event, ui) {
+                    $(this).addClass("box");
+                },
+                out: function (event, ui) {
+                    $(this).removeClass("box");
+                },
+                drop: function (event, ui) {
+                    var element = ui.draggable;
+                    var elementID = element.attr("tid");
+                    var state = $(this).attr("state");
+                    if (element.parent().attr("state") != state && element.attr("pbiid") == $(this).attr("pbiid")) {
+                        alert("Set state of task with ID: " + elementID + " to " + state);
+                        element.removeAttr("style");
+                        $(this).append(element);
+                        $(this).removeClass("box");
+                        element.attr("style", "position: relative");
+                        triggerDraggableReload();
+                    }
+                    else {
+                        element.removeAttr("style");
+                        $(this).removeClass("box");
+                        element.attr("style", "position: relative");
+                        triggerDraggableReload();
+
+                    }
+
+                }
+            });
+        }
+
+        function makeRow(pbiID) {
+            var $row = $('<div>').attr("class", "row col-max").attr("pbiid", pbiID);
+            $row.append($('<div>').attr("class", "pbiElements col-1"));
+            var $board = $('<div>').attr("class", "board");
+            $board.append($('<div>').attr("class", "taskElements col-2 notStartedDiv").attr("state", 0).attr("pbiid", pbiID));
+            $board.append($('<div>').attr("class", "taskElements col-3 inProgressDiv").attr("state", 1).attr("pbiid", pbiID));
+            $board.append($('<div>').attr("class", "taskElements col-4 DoneDiv").attr("state", 2).attr("pbiid", pbiID));
+            $row.append($board);
+            return $row;
+        }
+
+        function updateBoard(data, id, state) {
+            switch (state) {
+                case 0:
+                    $('.notStartedDiv', '.row[pbiid="' + id + '"]').append($('<p>').attr("class", "taskdata").attr("pbiid", id).attr("tid", data.BacklogItemTaskID).text(data.Name));
+                    break;
+                case 1:
+                    $('.inProgressDiv', '.row[pbiid="' + id + '"]').append($('<p>').attr("class", "taskdata").attr("pbiid", id).attr("tid", data.BacklogItemTaskID).text(data.Name));
+                    break;
+                case 2:
+                    $('.DoneDiv', '.row[pbiid="' + id + '"]').append($('<p>').attr("class", "taskdata").attr("pbiid", id).attr("tid", data.BacklogItemTaskID).text(data.Name));
+                    break;
+            }
+        }
+
+        function formatRow(data) {
+            var $row = new makeRow(data.ProductBacklogItemID);
+            $('.pbiElements', $row).append($('<p>').attr("pbiid", data.ProductBacklogItemID).text(data.Name));
+            $('.pbiElements', $row).append($('<a>').attr("href", "#").attr("class", "addTask").attr("pbiid", data.ProductBacklogItemID).text("Add Task"));
+            $('.dataContainer').append($row);
+            var tasks = data.PBITasks;
+            $.each(tasks, function (index) {
+                var current = tasks[index];
+                updateBoard(current, current.ProductBacklogID, current.State);
+            });
+        }
+
+        $.ajax({
+            url: _urlString + "Iterations/GetCurrentIterationForProject/31",
+            type: "GET"
+        }).done(function (data) {
+            if (data != null) {
+                var pbis = data.productBacklogItems;
+                $.each(pbis, function (index) {
+                    var current = pbis[index];
+                    formatRow(current);
+                    triggerDraggableReload();
+                });
+            };
+        });
+
+
+
+        //$('a.addTask').click(function (e) {
+        //    e.preventDefault();
+        //    var addTaskDialogElements = {
+        //        dialogID: "addTaskDialog",
+        //        dialogTitle: "Test Add Task",
+        //        dialogItems: [
+        //            new TextBox("taskNameTextBox", true, "Add Task", "TaskName")
+        //        ]
+        //    };
+        //    var addTaskDialogSettings = {
+        //        height: 200,
+        //        width: 350,
+        //        buttons: {
+        //            "Add": function () {
+        //                updateBoard($('#taskNameTextBox').val(), $(this).data("pbiID"), Math.floor((Math.random() * 10) + 1));
+        //                $(this).dialog("close");
+        //                triggerDraggableReload();
+        //            }
+        //        }
+        //    };
+        //    var addTaskDialog = new generateDialog(addTaskDialogElements, addTaskDialogSettings);
+        //    addTaskDialog.data("pbiID", $(this).attr("pbiid"));
+        //    addTaskDialog.dialog("open");
+        //});
+
+
+    })
+    ;
+</script>

@@ -1,0 +1,230 @@
+﻿@using OpenSourceScrumTool.Account_Manager
+@using OpenSourceScrumTool.Models
+@using OpenSourceScrumTool.Utilities
+@model IEnumerable<OpenSourceScrumTool.Models.UserDetailsDTO>
+<style>
+    .blockedUser {
+        color: red;
+    }
+</style>
+<h2>User Management</h2>
+<table id="userTable" class="customaccord">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th style="width: 25%;">AD User Name</th>
+            <th>Email Address</th>
+        </tr>
+    </thead>
+    @foreach (UserDetailsDTO user in Model)
+    {
+        if (user.CurrentRoles.Where(r => r.RoleType == (int)RoleEnum.Roles.Unauthorized).ToList().Any())
+        {
+            <tbody class="pageable">
+                <tr>
+                    <td class="blockedUser">@user.FirstName</td>
+                    <td class="blockedUser">@user.LastName</td>
+                    <td class="blockedUser">@user.UserName</td>
+                    @if (user.EmailAddress != "")
+                    {
+                        <td class="blockedUser">@user.EmailAddress</td>
+                    }
+                    else
+                    {
+                        <td class="blockedUser">No Email Address</td>
+                    }
+                    <td><a href="#" class="unblockUser blockedUser" uid="@user.UserID">Unblock User</a></td>
+                </tr>
+            </tbody>
+        }
+        else
+        {
+            <tbody class="accord-header pageable">
+                <tr>
+                    <td><a href="#" class="accord-link ttelement" title="Click here to see what teams the user is a member of.">@user.FirstName</a></td>
+                    <td>@user.LastName</td>
+                    <td><a href="#" class="role-acccrd-link ttelement" title="Click here to see user roles.">@user.UserName</a></td>
+                    @if (user.EmailAddress != "")
+                    {
+                        <td>@user.EmailAddress</td>
+                    }
+                    else
+                    {
+                        <td>No Email Address</td>
+                    }
+                    <td><a href="#" class="editUserInfo" uid="@user.UserID" ufname="@user.FirstName" ulname="@user.LastName" ueaddress="@user.EmailAddress" uname="@user.UserName">Edit</a></td>
+                    <td><a href="#" class="blockUser" uid="@user.UserID">Block User</a></td>
+                </tr>
+            </tbody>
+            <tbody class="role-accord-data">
+                @if (user.CurrentRoles.Any())
+                {
+                    <tr>
+                        <th>
+                            Role Name
+                        </th>
+                        <th>
+                            Role Level
+                        </th>
+                        <th>
+                            Mapped AD Group
+                        </th>
+                        <th>
+                            Controlled by AD
+                        </th>
+                        <td><a href="#" uid="@user.UserID" class="assignUserRole">Add Role</a></td>
+                    </tr>
+
+
+                    foreach (RoleDTO r in user.CurrentRoles)
+                    {
+                        <tr>
+                            <td>@r.RoleName</td>
+                            @switch (r.RoleType)
+                            {
+                                case (int)RoleEnum.Roles.Administrator:
+                                    <td>Administrator</td>
+                                    break;
+                                case (int)RoleEnum.Roles.ScrumMaster:
+                                <td>Scrum Master</td>
+                                    break;
+                                case (int)RoleEnum.Roles.TeamLeader:
+                                <td>Team Leader</td>
+                                    break;
+                                case (int)RoleEnum.Roles.TeamMember:
+                                <td>Team Member</td>
+                                    break;
+                                case (int)RoleEnum.Roles.Stakeholder:
+                                <td>Stakeholder</td>
+                                    break;
+                                case (int)RoleEnum.Roles.Viewonly:
+                                <td>View Only</td>
+                                    break;
+                            }
+                            <td>@r.AdGroupName</td>
+                            @if (user.UserInRoleMap.First(uir => uir.RoleID == r.RoleID).isExplicit)
+                            {
+                                <td>No</td>
+                                <td><a href="#" class="removeExplicitRole" uid="@user.UserID" rid="@r.RoleID">Remove Role</a></td>
+                            }
+                            else
+                            {
+                                <td>Yes</td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            User has no roles
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tbody class="accord-data">
+                <tr>
+                    <th>
+                        Team Name
+                    </th>
+                    <td>
+                        <a href="#" class="addUserToTeam" uid="@user.UserID">Add User to Team</a>
+                    </td>
+                </tr>
+                @if (user.CurrentTeams.Any())
+                {
+                    foreach (TeamDTO t in user.CurrentTeams.Where(team => team.Archived == false).ToList())
+                    {
+                        <tr>
+                            <td>@t.TeamName</td>
+                            <td><a href="#" class="removeUserFromTeam" tid="@t.TeamID" uid="@user.UserID">Remove User from Team</a></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>User is not a member of any teams</td>
+                    </tr>
+                }
+            </tbody>
+        }
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        //Setup Tooltips
+        $(".ttelement").tooltip();
+
+        //Setup Accordions for both Roles and Teams.
+        setupAccord(".accord-header", ".accord-link", ".accord-data");
+        setupAccord(".accord-header", ".role-acccrd-link", ".role-accord-data");
+
+        //Enable Pagination on Table
+        paginateTable("#userTable", ".pageable");
+
+
+        //Dialog Links
+        $(".editUserInfo").click(function (e) {
+            e.preventDefault();
+            var editUserDialog = new UserDialog("editUser", $(this).attr("uid"));
+            var fname = getDialogItem(editUserDialog.EditUserInfoDialogElements, "FirstName");
+            var lname = getDialogItem(editUserDialog.EditUserInfoDialogElements, "LastName");
+            var email = getDialogItem(editUserDialog.EditUserInfoDialogElements, "Email");
+            var defaultData = [
+                new BuildDefaultData(fname, $(this).attr("ufname")),
+                new BuildDefaultData(lname, $(this).attr("ulname")),
+                new BuildDefaultData(email, $(this).attr("ueaddress"))
+            ];
+            var datatoPass = {
+                UserID: $(this).attr("uid"),
+                UserName: $(this).attr("uname")
+            }
+            editUserDialog.generatedDialog.data("udata", datatoPass);
+            editUserDialog.generatedDialog.dialog("open");
+            populateDefaultData(defaultData);
+        });
+        $(".assignUserRole").click(function(e) {
+            e.preventDefault();
+            var assignRoleToUserDialog = assignRoleDialog("assign", @UserHelper.GetUserID(User));
+            assignRoleToUserDialog.generatedDialog.data("uid", $(this).attr("uid"));
+            assignRoleToUserDialog.generatedDialog.dialog("open");
+        });
+        $(".removeExplicitRole").click(function(e) {
+            e.preventDefault();
+            var unassignRolesDialog = assignRoleDialog("remove", @UserHelper.GetUserID(User));
+            unassignRolesDialog.generatedDialog.data("uid", $(this).attr("uid"));
+            unassignRolesDialog.generatedDialog.data("rid", $(this).attr("rid"));
+            unassignRolesDialog.generatedDialog.dialog("open");
+        });
+        $(".addUserToTeam").click(function(e) {
+            e.preventDefault();
+            var addUserToTeamDialog = new UserDialog("addUserToTeam", $(this).attr("uid"));
+            addUserToTeamDialog.generatedDialog.data("uid", $(this).attr("uid"));
+            addUserToTeamDialog.generatedDialog.dialog("open");
+        });
+        $(".removeUserFromTeam").click(function(e) {
+            e.preventDefault();
+            var removeUserFromTeam = new UserDialog("removeUserFromTeam", $(this).attr("uid"));
+            removeUserFromTeam.generatedDialog.data("uid", $(this).attr("uid"));
+            removeUserFromTeam.generatedDialog.data("tid", $(this).attr("tid"));
+            removeUserFromTeam.generatedDialog.dialog("open");
+        });
+        $(".blockUser").click(function(e) {
+            e.preventDefault();
+            var blockdialog = new UserDialog("blockUser", $(this).attr("uid"));
+            blockdialog.generatedDialog.data("uid", $(this).attr("uid"));
+            blockdialog.generatedDialog.dialog("open");
+        });
+        $(".unblockUser").click(function(e) {
+            e.preventDefault();
+            var unblockdialog = new UserDialog("unblockUser", $(this).attr("uid"));
+            unblockdialog.generatedDialog.data("uid", $(this).attr("uid"));
+            unblockdialog.generatedDialog.dialog("open");
+        });
+
+    });
+</script>

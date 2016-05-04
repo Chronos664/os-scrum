@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OpenSourceScrumTool.Controllers.AdminController">
+    <Position X="2" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAEAABAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Controllers.HomeController">
+    <Position X="3.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAEACAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Controllers.ProjectController">
+    <Position X="4.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEEAEAAAAA=</HashCode>
+      <FileName>Controllers\ProjectController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Controllers.ReportsController">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ReportsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Controllers.UnauthorizedController">
+    <Position X="2" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\UnauthorizedController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.ConfigManager">
+    <Position X="12.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEgAAgAAAAAAAAgAAEEBAgAIA=</HashCode>
+      <FileName>Utilities\ConfigManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.LogHelper">
+    <Position X="9" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAACAAAAAAAQAAAgAAAg=</HashCode>
+      <FileName>Utilities\LogHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.UserHelper">
+    <Position X="10.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQQAAAAAAAACAAAQAEABAAAEAAAA=</HashCode>
+      <FileName>Utilities\UserHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="OpenSourceScrumTool.Utilities.LogLevel">
+    <Position X="7.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAYAAAAAAAAAAAAAAAAEAAAAAAEAAAAA=</HashCode>
+      <FileName>Utilities\LogHelper.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

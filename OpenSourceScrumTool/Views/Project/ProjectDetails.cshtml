@@ -1,0 +1,272 @@
+﻿@using OpenSourceScrumTool.Account_Manager
+@using OpenSourceScrumTool.Models
+@using OpenSourceScrumTool.Utilities
+@model OpenSourceScrumTool.Models.ProjectDetailsDTO
+@{
+    ViewBag.Title = "Project Details";
+}
+<a href="/Project">Back to Projects</a>
+@if (Model != null)
+{
+    <h2>@Model.ProjectName</h2>
+    <div id="Parent">
+        <div class="float-left" style="width: 15%">
+            <h3>Iterations</h3>
+            @if (UserHelper.isUserInRole(User, RoleEnum.Roles.TeamLeader))
+            {
+                <a href="#" id="iterationAdd" pid="@Model.ProjectId">Add new Iteration</a>
+            }
+            <table class="customaccord">
+                @foreach (IterationDetailsDTO i in Model.Iterations)
+                {
+                    <tbody class="accord-header">
+                        <tr>
+                            <td>
+                                <a href="#" class="accord-link ttelement" title="Click to view Sprint Information">@i.SprintName</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="accord-data" style="display: none">
+                        <tr>
+                            <th>
+                                Start Date
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>@i.SprintStartDate</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                End Date
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>@i.SprintEndDate</td>
+                        </tr>
+                        @if (UserHelper.isUserInRole(User, RoleEnum.Roles.TeamLeader))
+                        {
+                            <tr>
+                                <td><a href="#" class="editIteration" iid="@i.IterationID" iname="@i.SprintName" istartdate="@i.SprintStartDate" ienddate="@i.SprintEndDate">Edit</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#" class="deleteIteration" iid="@i.IterationID">Delete</a>
+                                </td>
+                            </tr>
+
+                        }
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    </tbody>
+
+                }
+            </table>
+        </div>
+        <div class="float-right" style="width: 85%">
+            <h3>Product Backlog</h3>
+            @if (UserHelper.isUserInRole(User, RoleEnum.Roles.Stakeholder))
+            {
+                <a href="#" class="addPBI" pid="@Model.ProjectId">Add Product Backlog Item</a>
+            }
+            <table id="pbiTable" style="width: 100%">
+                @if (Model.ProductBacklogItems.Any())
+                {
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong>Name</strong>
+                            </th>
+                            <th>
+                                <strong>Description</strong>
+                            </th>
+                            <th>
+                                <strong>Current Iteration</strong>
+                            </th>
+                            <th>
+                                <strong>Effort&nbsp;</strong>
+                            </th>
+                            <th>
+                                <strong>State</strong>
+                            </th>
+                            @*<th></th>
+                                <th></th>*@
+                        </tr>
+                    </thead>
+    <tbody id="tableSort">
+        @foreach (var pbi in Model.ProductBacklogItems.Where(bi => !bi.Archived).OrderBy(p => p.Priority))
+        {
+            <tr class="pbiDraggable" pbiid="@pbi.ProductBacklogItemID">
+                <td>@Html.ActionLink(pbi.Name, "BacklogItemDetails", new { id = pbi.ProductBacklogItemID })</td>
+                <td>@pbi.Description</td>
+                @if (pbi.CurrentIteration != null)
+                {
+                    <td>
+                        @pbi.CurrentIteration.SprintName
+                    </td>
+                }
+                else
+                {
+                    <td>Not Assigned to an Iteration</td>
+                }
+                <td>@pbi.EffortScore</td>
+                <td class="state" stateval="@pbi.State"></td>
+                @if (UserHelper.isUserInRole(User, RoleEnum.Roles.TeamMember))
+                {
+                    if (pbi.SprintID.HasValue)
+                    {
+                        <td>
+                            <a href="#" class="editPBI" pbiid="@pbi.ProductBacklogItemID" pid="@pbi.ProjectID" priority="@pbi.Priority" pbiname="@pbi.Name" pbidescription="@pbi.Description" pbieffort="@pbi.EffortScore" pbistate="@pbi.State" pbisprintid="@pbi.SprintID.Value">Edit</a>
+                            <a href="#" class="addpbitoiteration" pbiid="@pbi.ProductBacklogItemID">Add to Iteration</a>
+                            <a href="#" class="deletePBI" pbiid="@pbi.ProductBacklogItemID">Delete</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="#" class="editPBI" pbiid="@pbi.ProductBacklogItemID" pid="@pbi.ProjectID" priority="@pbi.Priority" pbiname="@pbi.Name" pbidescription="@pbi.Description" pbieffort="@pbi.EffortScore" pbistate="@pbi.State" pbisprintid="">Edit</a>
+                            <a href="#" class="addpbitoiteration" pbiid="@pbi.ProductBacklogItemID">Add to Iteration</a>
+                            <a href="#" class="deletePBI" pbiid="@pbi.ProductBacklogItemID">Delete</a>
+                        </td>
+                    }
+                }
+
+            </tr>
+
+        }
+    </tbody>
+                }
+                else
+                {
+                    <tr>
+                        <td>No Product Backlog Items</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        //Single State setting for display item state from int value
+        setStateExplicit(".state");
+        $(".ttelement").tooltip();
+        //Priority Sorting
+        $('#tableSort').sortable({
+            start: function (e, ui) {
+                $(this).attr('currentPriority', ui.item.index());
+            },
+            stop: function (e, ui) {
+                var newPriority = ui.item.index();
+                var oldPriority = $(this).attr('currentPriority');
+                if (newPriority != oldPriority) {
+                    $(this).removeAttr('currentPriority');
+                    var sendData = new Array();
+                    $(".pbiDraggable").each(function (i, tr) {
+                        var id = tr.attributes.getNamedItem('pbiid').value;
+                        sendData.push(id);
+                    });
+                    loadingOn();
+                    var priorityUpdate = {
+                        pbiIDs: sendData
+                    };
+                    postToAPI(priorityUpdate, "ProductBacklog/UpdatePriority", null);
+                }
+            },
+            accept: ".pbiDraggable"
+        }).disableSelection();
+
+        setupAccord(".accord-header", ".accord-link", ".accord-data");
+
+        //Dialogs
+        var addPBIDialog = new PBIDialog("add");
+
+        var editPBIDialog = new PBIDialog("edit");
+
+        var deletePBIDialog = new DeleteDialog("confirmDeletePBI-dialog", "Delete Backlog Item", "backlog item", "ProductBacklog");
+
+        var addIteration = new IterationDialog("add", @Model.ProjectId);
+
+        var addPBItoIteration = new IterationDialog("addPBI", @Model.ProjectId);
+
+        var editIteration = new IterationDialog("edit", @Model.ProjectId);
+
+        var deleteIteration = new DeleteDialog("confirmDeleteIteration-dialog", "Delete Iteration", "iteration", "Iterations");
+
+        //Hyperlinks for Dialogs
+        $("a.addPBI").click(function (e) {
+            e.preventDefault();
+            var projID = $(this).attr("pid");
+            addPBIDialog.generatedDialog.data("id", projID);
+            addPBIDialog.generatedDialog.dialog("open");
+        });
+
+        $("a.editPBI").click(function (e) {
+            e.preventDefault();
+            var data = {
+                projID: $(this).attr("pid"),
+                pbiID: $(this).attr("pbiid"),
+                priority: $(this).attr("priority"),
+                name: $(this).attr("pbiname"),
+                description: $(this).attr("pbidescription"),
+                effort: $(this).attr("pbieffort"),
+                state: $(this).attr("pbistate"),
+            };
+            if ($(this).attr("pbisprintid") != "") {
+                data.SprintID = $(this).attr("pbisprintid");
+            } else {
+                data.SprintID = null;
+            }
+            editPBIDialog.generatedDialog.data("pdata", data);
+            editPBIDialog.generatedDialog.dialog("open");
+            $("#editpbiNameTextBox").val(data.name);
+            $("#editpbiDescriptionTextBox").val(data.description);
+            $("#editpbiEffortScoreTextBox").val(data.effort);
+            $("#editpbiState").val(data.state);
+        });
+
+        $("a.deletePBI").click(function (e) {
+            e.preventDefault();
+            deletePBIDialog.data("id", $(this).attr("pbiid"));
+            deletePBIDialog.dialog("open");
+        });
+
+        $("a#iterationAdd").click(function(e) {
+            e.preventDefault();
+            addIteration.generatedDialog.data("pid", $(this).attr("pid"));
+            addIteration.generatedDialog.dialog("open");
+            $("#iterationStartDatePicker").datepicker({dateFormat: "dd/mm/yy"});
+            $("#iterationEndDatePicker").datepicker({dateFormat: "dd/mm/yy"});
+        });
+
+        $("a.addpbitoiteration").click(function(e) {
+            e.preventDefault();
+            addPBItoIteration.generatedDialog.data("pbiid", $(this).attr("pbiid"));
+            addPBItoIteration.generatedDialog.dialog("open");
+        });
+
+        $("a.editIteration").click(function(e) {
+            e.preventDefault();
+            editIteration.generatedDialog.data("iid", $(this).attr("iid"));
+            editIteration.generatedDialog.data("pid", @Model.ProjectId);
+            editIteration.generatedDialog.dialog("open");
+            var defaultData = [
+                new generateDefaultData("edititerationNameTextBox", $(this).attr("iname")),
+                new generateDefaultData("edititerationStartDatePicker", $(this).attr("istartdate")),
+                new generateDefaultData("edititerationEndDatePicker", $(this).attr("ienddate"))
+            ];
+            populateDefaultData(defaultData);
+
+        });
+        $("a.deleteIteration").click(function(e) {
+            e.preventDefault();
+            deleteIteration.data("id", $(this).attr("iid"));
+            deleteIteration.dialog("open");
+        });
+
+    });
+</script>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OpenSourceScrumTool.Utilities.ChartHelper">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAEAAABAAAEAAAAAAAAAAAQAAAACAKAAAAAAA=</HashCode>
+      <FileName>Utilities\ChartHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.ChartData">
+    <Position X="5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\ChartHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.ChartBarDataSet">
+    <Position X="1.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\ChartHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.ChartLineDataSet">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABBAAABAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Utilities\ChartHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.ChartDataSet">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABABAAAAAAAAAAAAAAAACAAQAAAAAAA=</HashCode>
+      <FileName>Utilities\ChartHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

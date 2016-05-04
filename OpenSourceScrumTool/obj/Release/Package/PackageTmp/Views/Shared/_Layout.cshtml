@@ -1,0 +1,51 @@
+﻿@using System.Web.Optimization
+@using OpenSourceScrumTool.Account_Manager
+@using OpenSourceScrumTool.Utilities
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Open Source SCRUM Tool</title>
+    <meta name="viewport" content="width=device-width"/>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    Hello, <span class="username">@UserHelper.GetUsernameAndRoles(User)</span>
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("DebugTest", "Test", "Home")</li>
+                        <li>@Html.ActionLink("Projects", "Index", "Project")</li>
+                        <li>@Html.ActionLink("Reports", "Index", "Reports")</li>
+                        @if (UserHelper.isUserInRole(User, RoleEnum.Roles.ScrumMaster))
+                        {
+                            <li>@Html.ActionLink("Administration", "Index", "Admin")</li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Open Source SCRUM Tool</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

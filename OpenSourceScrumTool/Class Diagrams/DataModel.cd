@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OpenSourceScrumTool.Models.BacklogItemTask" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAggBAAIAAAQAQIAAQAAIEAAAAABAAAAAA=</HashCode>
+      <FileName>Models\BacklogItemTask.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.BacklogItemTaskDTO">
+    <Position X="22.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgIBAAIAAAAAQIAAAAAIAAAAAABAAAAAA=</HashCode>
+      <FileName>Models\BacklogItemTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.BacklogItemTaskDetailsDTO">
+    <Position X="22.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Models\BacklogItemTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.Iteration" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAQAAEAAAAhAAAAAAASAAIBAAgAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Iteration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.Log" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABQQAAAAAAgAAAAAAAQAABAAAAAAMAAAAAAAAAAQA=</HashCode>
+      <FileName>Models\Log.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.LogDTO">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAQAAAAAAAAAAAAAAAAgQAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.LogDetailsDTO">
+    <Position X="9.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.ProductBacklogItem" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQACAAAAggAAEBAAASAYJBAAAABEAAAAIBAAAAAA=</HashCode>
+      <FileName>Models\ProductBacklogItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.ProductBacklogItemDTO">
+    <Position X="10.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAACAAAAgAAAEAAAAAAYJBAAAABAAAAAABAAAAAA=</HashCode>
+      <FileName>Models\ProductBacklogItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.ProductBacklogItemDetailsDTO">
+    <Position X="10.25" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\ProductBacklogItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.Project" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAASAAAAAAAgAAACAAAQAIIAAIgAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Project.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.ProjectDTO">
+    <Position X="13.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAIBAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.ProjectDetailsDTO">
+    <Position X="13.25" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.Role" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQAAAAAAAgAAAAAAAQAAAAAAAAAEQAAAAEAAAABA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.RoleDTO">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAAAA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.RoleDetailsDTO">
+    <Position X="20.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.Team" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQCAAAAAAgAAAAAAAQAAJAAAAAAEAAAAAAAAAAQA=</HashCode>
+      <FileName>Models\Team.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.TeamDTO">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Team.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.TeamDetailsDTO">
+    <Position X="15.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Team.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.User" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAASEAQAAAAgAAAAAAAQAAAAAAAAAESAQAAAAAAAAg=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserDTO">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAgAAAAAAAAAAQAAAgAAAAg=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserDetailsDTO">
+    <Position X="17" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserInRole" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABQAIAAEAAAAAAEAAAQAgAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UserInRole.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserInRoleDTO">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAEAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UserInRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserInRoleDetailsDTO">
+    <Position X="18.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Models\UserInRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.IterationDetailsDTO">
+    <Position X="24.25" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Models\Iteration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.IterationDTO">
+    <Position X="24.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAAAAAEAAAABAAAAAAAAAAIBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Iteration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.TeamToProject">
+    <Position X="16.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TabelMapperDTOs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.SetIteration">
+    <Position X="21.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TabelMapperDTOs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.Report">
+    <Position X="19.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAABAEgAAIAACAAAABAAAAAgAAAIIAAAAAAAAAA=</HashCode>
+      <FileName>Models\Report.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserTaskCount">
+    <Position X="18" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\Report.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserToRole">
+    <Position X="18" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAADAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TabelMapperDTOs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.UserToTeam">
+    <Position X="21.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TabelMapperDTOs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Utilities.ListUtilities">
+    <Position X="1.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\ListUtilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Models.ChangePBIPriority" Collapsed="true">
+    <Position X="16.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Models\TabelMapperDTOs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="OpenSourceScrumTool.Models.IModelContent">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\IModelContent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

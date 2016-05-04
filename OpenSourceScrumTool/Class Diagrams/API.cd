@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OpenSourceScrumTool.api.IterationController">
+    <Position X="4" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAEAAABAAAAAAAAACAEAAAAAAACAAAAAAAg=</HashCode>
+      <FileName>api\IterationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.api.LogController">
+    <Position X="4" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>api\LogController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.api.ProductBacklogController">
+    <Position X="7.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAARAAABAAAAACAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>api\ProductBacklogController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.api.ProjectController">
+    <Position X="7.5" Y="1.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABgAIAAAABAAAAAgAAACgAAAAAAAAAAAgIAAAg=</HashCode>
+      <FileName>api\ProjectController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.api.RoleController">
+    <Position X="4" Y="1.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAACAEQAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>api\RoleController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.api.TeamController">
+    <Position X="0.75" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAICAAAABAAAAAAAAACAAAAAAAAAQAAAAAIAg=</HashCode>
+      <FileName>api\TeamController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.api.UserController">
+    <Position X="0.75" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAIBAAAAAAACACAAAAACEAQAAgAAAAAg=</HashCode>
+      <FileName>api\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.api.TaskController">
+    <Position X="0.75" Y="1.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAACAEAAAAAAAAAAAAACAg=</HashCode>
+      <FileName>api\TaskController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

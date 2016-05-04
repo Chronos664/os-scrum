@@ -1,0 +1,78 @@
+﻿@using OpenSourceScrumTool.Account_Manager
+@using OpenSourceScrumTool.Utilities
+@model IEnumerable<OpenSourceScrumTool.Models.ProjectDetailsDTO>
+
+@{
+    ViewBag.Title = "Projects";
+}
+<h2>Projects</h2>
+
+<p>
+    @if (UserHelper.isUserInRole(User, RoleEnum.Roles.ScrumMaster))
+    {
+        <a href="#" id="addProjects">Add a Project</a>
+    }
+</p>
+<table id="projectTable">
+    <tr>
+        <th>
+            <strong>Project Name</strong>
+        </th>
+        <th>
+            <strong>Project Description</strong>
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tbody class="pageable">
+            <tr>
+                <td>
+                    @Html.ActionLink(item.ProjectName, "ProjectDetails", new { id = item.ProjectId })
+                </td>
+                <td>
+                    <p>@item.ProjectDetails</p>
+                </td>
+                @if (UserHelper.isUserInRole(User, RoleEnum.Roles.ScrumMaster))
+                {
+                    <td>
+                        <a href="#" class="editProject" pid="@item.ProjectId" pname="@item.ProjectName" pdescription="@item.ProjectDetails">Edit</a> |
+                        <a href="#" class="deleteProject" pid="@item.ProjectId">Delete</a>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        var addDialog = new ProjectDialog("add");
+        var editDialog = new ProjectDialog("edit");
+        var deleteDialog = new DeleteDialog("confirmDeleteProject-dialog", "Delete Project", "project", "Project");
+
+        paginateTable("#projectTable", ".pageable");
+
+        $("a#addProjects").click(function (e) {
+            e.preventDefault();
+            addDialog.generatedDialog.dialog("open");
+        });
+        $("a.editProject").click(function (e) {
+            e.preventDefault();
+            var projID = $(this).attr("pid");
+            var projName = $(this).attr("pName");
+            var projDetails = $(this).attr("pDescription");
+            editDialog.generatedDialog.data("id", projID);
+            $("#projectNameEditTextBox").val(projName);
+            $("#projectDescriptionEdit-TextBox").val(projDetails);
+
+            editDialog.generatedDialog.dialog("open");
+        });
+        $("a.deleteProject").click(function (e) {
+            e.preventDefault();
+            var projID = $(this).attr("pid");
+            deleteDialog.data("id", projID);
+            deleteDialog.dialog("open");
+        });
+    });
+</script>

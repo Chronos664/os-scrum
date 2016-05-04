@@ -1,0 +1,7 @@
+﻿POST http://localhost:4874/api/project HTTP/1.1
+Host: localhost:4874
+Connection: keep-alive
+Content-Type: application/json
+Content-Length: 46
+
+{"ProjectId":0, "ProjectName":"Dummy Project"}

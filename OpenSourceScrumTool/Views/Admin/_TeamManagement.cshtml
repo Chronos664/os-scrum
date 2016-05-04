@@ -1,0 +1,134 @@
+﻿@using OpenSourceScrumTool.Models
+@model System.Collections.Generic.IEnumerable<OpenSourceScrumTool.Models.TeamDetailsDTO>
+<h2>Team Management</h2>
+<table id="teamTable" class="customaccord">
+    <thead>
+        <tr>
+            <th>
+                Team Name
+            </th>
+            <th>
+                Is Archived
+            </th>
+            <td><a href="#" id="addTeamLink">Add New Team</a></td>
+        </tr>
+    </thead>
+    @foreach (TeamDetailsDTO team in Model)
+    {
+        <tbody class="pageable accord-header">
+            <tr>
+                <td><a href="#" class="accord-link">@team.TeamName</a></td>
+                @if (team.Archived)
+                {
+                    <td>Yes</td>
+                    <td><a href="#" class="RestoreTeam" tid="@team.TeamID">Reinstate Team</a></td>
+                }
+                else
+                {
+                    <td>No</td>
+                    <td><a href="#" class="archiveTeam" tid="@team.TeamID">Archive Team</a></td>
+                }
+                <td><a href="#" class="editTeamInfo" tid="@team.TeamID" tname="@team.TeamName">Edit Team</a></td>
+            </tr>
+        </tbody>
+        <tbody class="accord-data">
+            <tr>
+                <th>Project Name</th>
+                <th>Project Details</th>
+                <th>Is Archived</th>
+                <td><a href="#" tid="@team.TeamID" class="addTeamToProject">Add Team to Project</a></td>
+            </tr>
+            @if (team.AssignedProjects.Any())
+            {
+                foreach (ProjectDTO p in team.AssignedProjects)
+                {
+                    <tr>
+                        <td>@p.ProjectName</td>
+                        <td>@p.ProjectDetails</td>
+                        @if (p.Archived)
+                        {
+                            <td>Yes</td>
+                            <td><a href="#" class="RestoreProject" pid="@p.ProjectId">Reinstate Project</a></td>
+                        }
+                        else
+                        {
+                            <td>No</td>
+                            <td><a href="#" class="archiveProject" pid="@p.ProjectId">Archive Project</a></td>
+                        }
+                        <td><a href="#" class="removeTeamFromProject" tid="@team.TeamID" pid="@p.ProjectId">Remove Team From Project</a></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>Team not assigned to any Projects.</td>
+                </tr>
+            }
+        </tbody>
+
+    }
+</table>
+<script>
+    $(document).ready(function () {
+        paginateTable("#teamTable", ".pageable");
+        setupAccord(".accord-header", ".accord-link", ".accord-data");
+
+
+        $("a#addTeamLink").click(function (e) {
+            e.preventDefault();
+            var addTeamDialog = new TeamDialog("add");
+            addTeamDialog.generatedDialog.dialog("open");
+        });
+        $("a.editTeamInfo").click(function (e) {
+            e.preventDefault();
+            var editTeamDialog = new TeamDialog("edit");
+            var defaultData = [
+                new generateDefaultData("editTeamNameTextBox", $(this).attr("tname"))
+            ];
+            editTeamDialog.generatedDialog.data("tid", $(this).attr("tid"));
+            editTeamDialog.generatedDialog.dialog("open");
+            populateDefaultData(defaultData);
+        });
+        $("a.addTeamToProject").click(function (e) {
+            e.preventDefault();
+            var addTeamToProject = new TeamToProjectDialog("add", $(this).attr("tid"));
+            addTeamToProject.generatedDialog.data("tid", $(this).attr("tid"));
+            addTeamToProject.generatedDialog.dialog("open");
+        });
+        $("a.removeTeamFromProject").click(function (e) {
+            e.preventDefault();
+            var removeTeamFromProject = new TeamToProjectDialog("remove", $(this).attr("tid"));
+            removeTeamFromProject.generatedDialog.data("tid", $(this).attr("tid"));
+            removeTeamFromProject.generatedDialog.data("pid", $(this).attr("pid"));
+            removeTeamFromProject.generatedDialog.dialog("open");
+        });
+
+        $(".archiveTeam").click(function(e) {
+            e.preventDefault();
+            var archiveTeamDialog = new TeamDialog("archive");
+            archiveTeamDialog.generatedDialog.data("tid", $(this).attr("tid"));
+            archiveTeamDialog.generatedDialog.dialog("open");
+        });
+
+        $(".RestoreTeam").click(function(e) {
+            e.preventDefault();
+            var restoreTeamDialog = new TeamDialog("restore");
+            restoreTeamDialog.generatedDialog.data("tid", $(this).attr("tid"));
+            restoreTeamDialog.generatedDialog.dialog("open");
+        });
+
+        $(".RestoreProject").click(function(e) {
+            e.preventDefault();
+            var restoreDialog = new ProjectDialog("restore");
+            restoreDialog.generatedDialog.data("pid", $(this).attr("pid"));
+            restoreDialog.generatedDialog.dialog("open");
+        });
+        $(".archiveProject").click(function (e) {
+            e.preventDefault();
+            var archiveDialog = new ProjectDialog("archive");
+            archiveDialog.generatedDialog.data("pid", $(this).attr("pid"));
+            archiveDialog.generatedDialog.dialog("open");
+        });
+    });
+</script>

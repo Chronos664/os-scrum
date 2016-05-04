@@ -1,0 +1,47 @@
+﻿@using OpenSourceScrumTool.Models
+@using OpenSourceScrumTool.Utilities
+@model List<OpenSourceScrumTool.Models.LogDetailsDTO>
+<h2>Log Viewer</h2>
+<p>
+    Search Log Messages: @Html.TextBox("searchString")
+    <input type="submit" id="searchSubmit" value="Search" />
+</p>
+
+<div class="container" style="width: 100%; height: 100%;">
+    <table id="logTable" style="table-layout: fixed; width: 100%; height: 100%">
+        <thead>
+            <tr>
+                <th style="width: 15%">@Html.ActionLink("Log Level", "LogViewer", new { sortOrder = ViewBag.ErrorLevelSort }, new {id="logLevelLink"})</th>
+                <th>Log Message</th>
+                <th style="width: 20%;">User for Action</th>
+                <th style="width: 10%;">@Html.ActionLink("Event Date", "LogViewer", new { sortOrder = ViewBag.DateSortParam }, new {id="eventDateLink"})</th>
+            </tr>
+        </thead>
+        @foreach (LogDetailsDTO log in Model)
+        {
+            <tbody class="pageable">
+                <tr>
+                    @switch (log.LogLevel)
+                    {
+                        case (int)LogLevel.Info:
+                            <td>Information</td>
+                            break;
+                        case (int)LogLevel.Debug:
+                        <td>Debug</td>
+                            break;
+                        case (int)LogLevel.Warn:
+                        <td>Warning</td>
+                            break;
+                        case (int)LogLevel.Error:
+                        <td>Error</td>
+                            break;
+                    }
+                    <td>
+                        <div style="word-wrap: break-word;">@log.LogMessage</div></td>
+                    <td style="word-wrap: break-word;">@log.User.UserName</td>
+                    <td>@log.TimeOfLog.ToString()</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>

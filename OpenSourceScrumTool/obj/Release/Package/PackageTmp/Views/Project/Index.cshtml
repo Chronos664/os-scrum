@@ -1,0 +1,33 @@
+﻿@model IEnumerable<OpenSourceScrumTool.Models.ProjectDetailsDTO> 
+
+@{
+    ViewBag.Title = "Projects";
+}
+
+<h2>Projects</h2>
+
+<p>
+    @Html.ActionLink("Add New Project", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            <strong>Project Name</strong>
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProjectId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })
+            </td>
+        </tr>
+    }
+</table>
+

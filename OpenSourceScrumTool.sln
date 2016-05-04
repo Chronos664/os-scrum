@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceScrumTool", "OpenSourceScrumTool\OpenSourceScrumTool.csproj", "{28FF36EA-2ED6-4B78-AA4B-D350A797347B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceScrumTool.Tests", "OpenSourceScrumTool.Tests\OpenSourceScrumTool.Tests.csproj", "{096EB3E1-1A1F-4D1A-8874-7A0F1F5CE887}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28FF36EA-2ED6-4B78-AA4B-D350A797347B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FF36EA-2ED6-4B78-AA4B-D350A797347B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FF36EA-2ED6-4B78-AA4B-D350A797347B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FF36EA-2ED6-4B78-AA4B-D350A797347B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{096EB3E1-1A1F-4D1A-8874-7A0F1F5CE887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096EB3E1-1A1F-4D1A-8874-7A0F1F5CE887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096EB3E1-1A1F-4D1A-8874-7A0F1F5CE887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096EB3E1-1A1F-4D1A-8874-7A0F1F5CE887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43A793ED-A1F5-4877-9FBC-3078DDEBBA30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A793ED-A1F5-4877-9FBC-3078DDEBBA30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A793ED-A1F5-4877-9FBC-3078DDEBBA30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A793ED-A1F5-4877-9FBC-3078DDEBBA30}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

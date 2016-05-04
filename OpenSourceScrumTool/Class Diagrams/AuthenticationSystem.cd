@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OpenSourceScrumTool.Account_Manager.TeamAuthenticate">
+    <Position X="8" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAABAAAAAAAAAAQAAAAIAAAAAAAAAAAACA=</HashCode>
+      <FileName>Account-Manager\TeamAuthenticate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Account_Manager.UserAuthenticate">
+    <Position X="5.5" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAJgCABAAAAgEAAAAMAABAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Account-Manager\UserAuthenticate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Account_Manager.ApiAuthenticate">
+    <Position X="1.5" Y="5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAABAAAEAEAAAAAAAAACAAAAAAAAAAAACA=</HashCode>
+      <FileName>Account-Manager\APIAuthenticate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenSourceScrumTool.Account_Manager.RoleEnum">
+    <Position X="2.75" Y="0.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="OpenSourceScrumTool.Account_Manager.RoleEnum.Roles">
+        <TypeIdentifier>
+          <NewMemberFileName>Account-Manager\RoleEnum.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Account-Manager\RoleEnum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

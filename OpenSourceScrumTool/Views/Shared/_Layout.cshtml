@@ -1,0 +1,71 @@
+﻿@using System.Web.Optimization
+@using OpenSourceScrumTool.Account_Manager
+@using OpenSourceScrumTool.Utilities
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Open Source SCRUM Tool</title>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Utilities")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink("OS-Scrum", "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                @if (UserHelper.IsUserUnauthorized(User))
+                {
+                    <section id="login" style="color: red">
+                        Warning, <span class="username">@UserHelper.GetUsernameAndRoles(User)</span>
+                    </section>
+                }
+                else
+                {
+                    <section id="login">
+                        Hello, <span class="username">@UserHelper.GetUsernameAndRoles(User)</span>
+                    </section>
+                }
+                <nav>
+                    @if (!UserHelper.IsUserUnauthorized(User))
+                    {
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Projects", "Index", "Project")</li>
+                            <li>@Html.ActionLink("Reports", "Index", "Reports")</li>
+                            @if (UserHelper.isUserInRole(User, RoleEnum.Roles.ScrumMaster))
+                            {
+                                <li>@Html.ActionLink("Administration", "Index", "Admin")</li>
+                            }
+                        </ul>
+                    }
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        <section class="content-wrapper main-content clear-fix">
+            @if (ViewBag.Error != null)
+            {
+                <p style="color: red;">@ViewBag.Error</p>
+            }
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Open Source SCRUM Tool</p>
+            </div>
+        </div>
+    </footer>
+    <div class="loadingGif"></div>
+</body>
+</html>

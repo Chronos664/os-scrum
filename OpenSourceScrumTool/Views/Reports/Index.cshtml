@@ -1,0 +1,130 @@
+﻿@using System.Web.Optimization
+@using OpenSourceScrumTool.Models
+@model IEnumerable<OpenSourceScrumTool.Models.ProjectDTO>
+@{
+    ViewBag.Title = "Reports";
+}
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    [class*="col-"] {
+        float: left;
+        padding: 2px;
+        text-align: left;
+        display: block;
+    }
+    .infoCol {
+        text-align: center;
+    }
+</style>
+@Scripts.Render("~/bundles/chartjs")
+<h2 id="reportHeader">Reports</h2>
+<div class="float-left" style="width: 15%;">
+    <div id="projectList">
+        <ul>
+            @foreach (ProjectDTO p in Model.Where(project => !project.Archived))
+            {
+                <li><a href="#" class="projectLink" pid="@p.ProjectId">@p.ProjectName</a></li>
+            }
+        </ul>
+    </div>
+</div>
+<div id="report" style="display: none" class="col-max">
+    <a href="#" id="returnToProjectSelect" style="text-align: left;">Select New Project</a>
+    <div id="chartContainer">
+        <h3 class="infoCol">Project Statistics</h3>
+        <p>
+            <canvas id="velocityGraph" style="display: inline;"></canvas>
+            <canvas id="burndownGraph" style="display: inline;"></canvas>
+        </p>
+    </div>
+    <div id="otherReportInfo" class="col-max">
+        <div class="col-1 infoCol">
+            <p>
+                <h3>Total Backlog Items Finished: </h3><span id="totalfinisheditems"></span>
+            </p>
+        </div>
+        <div class="col-2 infoCol">
+            <p>
+                <h3>Total Estimated Effort: </h3><span id="totaleffort"></span>
+            </p>
+        </div>
+        <div class="col-3 infoCol">
+            <p>
+                <h3>Current Average Velocity: </h3><span id="averageVelocity"></span>
+            </p>
+        </div>
+        <div class="col-max" id="userTaskTable">
+            <h3 class="infoCol">Users Completed Tasks</h3>
+        </div>    
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        function buildUserTaskTable(data) {
+            $("table", "#userTaskTable").remove();
+            var $table = $('<table>');
+            $table.append($('<thead>'));
+            $("thead", $table).append($('<tr>'));
+            $("thead tr", $table).append($('<th>').text("User Name"));
+            $("thead tr", $table).append($('<th>').text("Tasks Completed"));
+            $table.append($('<tbody>'));
+            $.each(data, function (index) {
+                var current = data[index];
+                $('tbody', $table).append($('<tr>'));
+                $('tbody tr:last', $table).append($('<td>').text(current.UserName));
+                $('tbody tr:last', $table).append($('<td>').text(current.TaskCount));
+            });
+            $("#userTaskTable").append($table);
+        }
+
+        function buildReport(reportData) {
+            $("#totalfinisheditems").text(reportData.TotalBacklogItemsFinished);
+            $("#totaleffort").text(reportData.TotalEffort);
+            $("#averageVelocity").text(reportData.CurrentAverageVelocity);
+            buildUserTaskTable(reportData.TotalTasksFinishedByUser);
+            var velocityChartCtx = $("#velocityGraph").get(0).getContext("2d");
+            velocityChartCtx.canvas.width = 400;
+            velocityChartCtx.canvas.height = 400;
+            var velocityData = reportData.VelocityChart;
+            var velocityChart = new Chart(velocityChartCtx).Bar(velocityData);
+            var burndownChartCtx = $("#burndownGraph").get(0).getContext("2d");
+            burndownChartCtx.canvas.width = 400;
+            burndownChartCtx.canvas.height = 400;
+            var burndownData = reportData.BurndownChart;
+            var burndownChart = new Chart(burndownChartCtx).Line(burndownData);
+            loadingOff();
+        }
+
+
+
+        $("a.projectLink").click(function (e) {
+            e.preventDefault();
+            loadingOn();
+            $.ajax({
+                url: _urlString + "Project/Report/" + $(this).attr("pid"),
+                type: "GET"
+            }).done(function (data) {
+                $("#projectList").slideToggle();
+                $("#report").slideToggle();
+                var header = "Report for " + data.ProjectName;
+                $("#reportHeader").text(header);
+                buildReport(data);
+            });
+        });
+
+        $("a#returnToProjectSelect").click(function (e) {
+            e.preventDefault();
+            $("table", "#userTaskTable").remove();
+            $("#velocityGraph").remove();
+            $("#burndownGraph").remove();
+            $("#chartContainer p").append('<canvas id="velocityGraph" style="display: inline;"></canvas>');
+            $("#chartContainer p").append('<canvas id="burndownGraph" style="display: inline;"></canvas>');
+            $("#projectList").slideToggle();
+            $("#report").slideToggle();;
+            $("#reportHeader").text("Reports");
+        });
+    });
+</script>

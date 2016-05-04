@@ -1,0 +1,59 @@
+﻿@using OpenSourceScrumTool.Utilities
+@model dynamic
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .scrumboard {
+        table-layout: fixed;
+    }
+    .scrumboard th {
+        width: 20%;
+        border-top-style: none;
+        border-left-style: solid;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        text-align: center;
+    }
+    .pbiElement {
+        padding: 0.5em;
+    }
+</style>
+<div id="content">
+    <div class="float-left" style="width: 20%;">
+        <h3>Select Project: </h3>
+        <select id="projectSelect"></select>
+    </div>
+    <div class="float-right" style="width: 80%;">
+        <div id="partialContainer">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        function setupProjectList() {
+            var list = $("#projectSelect");
+            list.empty();
+            $.ajax({
+                url: _urlString + "Project/GetAvailableProjectsForUser",
+                type: "GET"
+            }).done(function (data) {
+                list.append($("<option></option>").attr("value", null).text("Please Select A Project"));
+                $.each(data, function (index) {
+                    var current = data[index];
+                    list.append($("<option></option>").attr("value", current.ProjectId).
+                    text(current.ProjectName));
+                });
+            });
+        };
+        setupProjectList();
+        $("#projectSelect").change(function () {
+            var id = $(this).val();
+            if (id != null) {
+                buildScrumBoard(id);
+            };
+        });
+    });
+</script>

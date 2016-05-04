@@ -1,0 +1,96 @@
+﻿@using OpenSourceScrumTool.Account_Manager
+@using OpenSourceScrumTool.Utilities
+@{
+    ViewBag.Title = "Administration";
+}
+<div class="Parent">
+    <div class="float-left" style="width: 20%">
+        <h2>Administration</h2>
+        <label for="options">Please Select Area to Manage</label>
+        <ul id="options">
+            <li>
+                <a href="#" id="teamLink">Team Management</a>
+            </li>
+            @if (UserHelper.isUserInRole(User, RoleEnum.Roles.Administrator))
+            {
+                <li>
+                    <a href="#" id="userLink">User Management</a>
+                </li>
+            }
+            <li>
+                <a href="#" id="logLink">Logs</a>
+            </li>
+        </ul>
+    </div>
+    <div class="float-right" style="width: 80%">
+        <div id="partialContainer">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        function captureLogForm() {
+            paginateTable("#logTable", ".pageable");
+            $("#searchSubmit").click(function (e) {
+                e.preventDefault();
+                var postData = {
+                    "searchString": $("#searchString").val()
+                };
+                $.ajax({
+                    url: "/Admin/LogViewer",
+                    type: "POST",
+                    data: postData,
+                    dataType: "text/html",
+                    async: false
+                }).complete(function (content) {
+                    $("#partialContainer").html(content.responseText);
+                    captureLogForm();
+                });
+            });
+            $("#logLevelLink").click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("href"),
+                    type: "GET",
+                    data: null,
+                    dataType: "text/html",
+                    async: false
+                }).complete(function (content) {
+                    $("#partialContainer").html(content.responseText);
+                    captureLogForm();
+                });
+            });
+            $("#eventDateLink").click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("href"),
+                    type: "GET",
+                    data: null,
+                    dataType: "text/html",
+                    async: false
+                }).complete(function (content) {
+                    $("#partialContainer").html(content.responseText);
+                    captureLogForm();
+                });
+            });
+        };
+        $("#userLink").click(function (e) {
+            e.preventDefault();
+            loadPartialView("/Admin/UserManagement/");
+        });
+
+        $("#teamLink").click(function (e) {
+            e.preventDefault();
+            loadPartialView("/Admin/TeamManagement/");
+        });
+
+        $("#logLink").click(function (e) {
+            e.preventDefault();
+            loadPartialView("/Admin/LogViewer/");
+            captureLogForm();
+        });
+
+    });
+</script>

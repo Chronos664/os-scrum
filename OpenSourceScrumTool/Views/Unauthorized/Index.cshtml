@@ -1,0 +1,11 @@
+﻿@using OpenSourceScrumTool.Utilities
+@model dynamic
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Unauthorized</h2>
+@if (ViewBag.requestedURL != null)
+{
+    <p style="color: red">You @ViewBag.Reason. This request has been logged<br />If you believe this to be in error, Please contact your Administrator with the following Information:<br />User Name: @UserHelper.GetUserName(User)<br />Page Accessed: @ViewBag.requestedURL<br />Access Time: @DateTime.Now</p>
+}
